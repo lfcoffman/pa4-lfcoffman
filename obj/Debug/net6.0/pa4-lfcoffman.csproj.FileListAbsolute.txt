@@ -1,0 +1,4 @@
+C:\Users\lfcof\OneDrive - The University of Alabama\MIS321\pa4-lfcoffman\obj\Debug\net6.0\pa4-lfcoffman.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lfcof\OneDrive - The University of Alabama\MIS321\pa4-lfcoffman\obj\Debug\net6.0\pa4-lfcoffman.AssemblyInfoInputs.cache
+C:\Users\lfcof\OneDrive - The University of Alabama\MIS321\pa4-lfcoffman\obj\Debug\net6.0\pa4-lfcoffman.AssemblyInfo.cs
+C:\Users\lfcof\OneDrive - The University of Alabama\MIS321\pa4-lfcoffman\obj\Debug\net6.0\pa4-lfcoffman.csproj.CoreCompileInputs.cache
