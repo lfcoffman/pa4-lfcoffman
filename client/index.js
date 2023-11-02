@@ -1,10 +1,6 @@
 let count = 0
 let myExercises = []
 
-// myExercises.push({Exercise: "Cardio", Date: "09/22/2023", Distance: "5.5", UUID: generateUUID()})
-// myExercises.push({Exercise: "Swimming", Date: "09/25/2023", Distance: "2.8", UUID: generateUUID()})
-// localStorage.setItem('myExercises', JSON.stringify(myExercises))
-
 async function handleOnLoad()
 {   await updateExercises()
     populateTable()
@@ -22,7 +18,8 @@ async function handleOnLoad()
     </form>`
     document.getElementById('app').innerHTML=html
 }
-async function updateExercises(){
+async function updateExercises()
+{
     let response = await fetch('http://localhost:5000/api/Exercise' )
     myExercises = await response.json()
 }
@@ -52,21 +49,22 @@ async function populateTable()
             `
             if(exercise.Pin == false)
             {
-            html+=`<td><button class="btn " onclick="handlePin('${exercise.id}')">Unpinned</button></td>`
+                html+=`<td><button class="btn " onclick="handlePin('${exercise.id}')">Unpinned</button></td>`
             }
             else
             {
-            html+=`<td><button class="btn " onclick="handlePin('${exercise.id}')">Pinned</button></td>`
+                html+=`<td><button class="btn " onclick="handlePin('${exercise.id}')">Pinned</button></td>`
             }
-            html+=`<td><button class="btn btn-danger" onclick="handleExerciseDelete('${exercise.id}')">Delete</button></td>
-            </tr>`
+                html+=`<td><button class="btn btn-danger" onclick="handleExerciseDelete('${exercise.id}')">Delete</button></td>
+                </tr>`
         })
         html+=`</table>
     </div>`
     document.getElementById('tableBody').innerHTML = html
 }
 
-async function handleExerciseAdd() {
+async function handleExerciseAdd() 
+{
     let exerciseDate = document.getElementById('date').value;
     let exerciseName = document.getElementById('exercise').value;
     let distance = document.getElementById('distance').value;
@@ -78,12 +76,13 @@ async function handleExerciseAdd() {
             Date: exerciseDate,
             Distance: distance,
         }),
-        headers: {
+        headers: 
+        {
             'Content-Type': 'application/json'
         }
     });
     
-    if (response.ok) {
+    if(response.ok) {
         populateTable();
         document.getElementById('exercise').value = '';
         document.getElementById('date').value = '';
@@ -92,25 +91,44 @@ async function handleExerciseAdd() {
 }
 
 
-function handleExerciseDelete(UUID)
+async function handleExerciseDelete(id)
 {
-    myExercises = myExercises.filter(exercise => exercise.UUID != UUID)
-    populateTable()
-}
-
-function handlePin(uuid)
-{
-    myExercises.forEach(function(exercise)
+    // myExercises = myExercises.filter(exercise => exercise.id != id)
+    const response = await fetch('http://localhost:5000/api/Exercise/'+ id, 
     {
-        if(exercise.UUID == uuid)
+        method: 'DELETE', 
+        headers: 
         {
-            exercise.Pin = !exercise.Pin
+            'Content-Type': 'application/json'
         }
     })
-    populateTable()
+    if(response.ok)
+    {
+        populateTable();
+    }
 }
 
-function sortTableByDate() {
+async function handlePin(id)
+{
+    const exercise = myExercises.find(exercise => exercise.Id == id);
+    exercise.Pin = !exercise.Pin;
+    const response = await fetch('http://localhost:5000/api/Exercise', 
+    {
+        method: 'PUT', 
+        body: JSON.stringify({Pin: exercise.Pin}),
+        headers: 
+        {
+            'Content-Type': 'application/json'
+        }
+    })
+    if(response.ok)
+    {
+        populateTable();
+    }
+}
+
+function sortTableByDate() 
+{
     myExercises.sort(function(a,b)
     {
         return new Date(b.Date) - new Date(a.Date)

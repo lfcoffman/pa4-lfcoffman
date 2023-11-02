@@ -46,5 +46,36 @@ namespace pa4_lfcoffman.api.Models
             cmd.Parameters.AddWithValue("@distance", myExercises.Distance);
             cmd.ExecuteNonQuery();
         }
+
+        public bool UpdatePin(int id, bool newPin)
+        {
+            ConnectionString myConnection = new ConnectionString();
+            string cs = myConnection.cs;
+            using var con = new MySqlConnection(cs);
+            con.Open();
+
+            string stm = @"UPDATE exerciselIST SET pin = @newPin WHERE uuid = @id";
+            using var cmd = new MySqlCommand(stm, con);
+            cmd.Parameters.AddWithValue("@newPin", newPin);
+            cmd.Parameters.AddWithValue("@id", id);
+            int rowsPinned = cmd.ExecuteNonQuery();
+            return rowsPinned > 0;
+        }
+
+        public void DeleteExercise(int id)
+        {
+            ConnectionString myConnection = new ConnectionString();
+            string cs = myConnection.cs;
+            using var con = new MySqlConnection(cs);
+            con.Open();
+            string stm = @"DELETE FROM exerciselist WHERE UUID = @id";
+            using var cmd = new MySqlCommand(stm, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            // cmd.Parameters.AddWithValue("@name", myExercises.ExerciseName);
+            // cmd.Parameters.AddWithValue("@date", myExercises.Date);
+            // cmd.Parameters.AddWithValue("@distance", myExercises.Distance);
+            // cmd.ExecuteNonQuery();
+        }
     }
 }

@@ -13,26 +13,20 @@ namespace api.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        // GET: api/Exercise
+        // GET: api/Exercise/5
         [HttpGet]
         public List<Exercise> Get()
         {
             ExerciseUtility utility = new ExerciseUtility();
             return utility.GetAllExercises();
-        }
-
-        // GET: api/Exercise/5
-        [HttpGet("{id}", Name = "Get")]
-        public Exercise Get(int id)
-        {
-            ExerciseUtility utility = new ExerciseUtility();
-            List<Exercise> myExercises= utility.GetAllExercises();
-            foreach(Exercise exercise in myExercises){
-                if(exercise.Id == id){
-                    return exercise;
-                }
-            }
-            return new Exercise();
+            // List<Exercise> myExercises= utility.GetAllExercises();
+            // foreach(Exercise exercise in myExercises){
+            //     if(exercise.Id == id)
+            //     {
+            //         return exercise;
+            //     }
+            // }
+            // return new Exercise();
         }
 
         // POST: api/Exercise
@@ -45,8 +39,11 @@ namespace api.Controllers
 
         // PUT: api/Exercise/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public bool Put(int id, [FromBody] bool newPin)
         {
+            ExerciseUtility utility = new ExerciseUtility();
+            bool updated = utility.UpdatePin(id, newPin);
+            return updated;
         }
 
         // DELETE: api/Exercise/5
@@ -54,6 +51,9 @@ namespace api.Controllers
         public void Delete(int id)
         {
             System.Console.WriteLine(id);
+            ExerciseUtility utility = new ExerciseUtility();
+            utility.DeleteExercise(id);
+            
         }
     }
 }
