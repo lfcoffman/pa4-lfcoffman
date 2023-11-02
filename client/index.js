@@ -25,8 +25,6 @@ async function updateExercises()
 }
 async function populateTable()
 {
-    
-    //sortTableByDate()
     let html=`
     <div class="tablecontainer">
         <table class ="table table-striped">
@@ -93,7 +91,6 @@ async function handleExerciseAdd()
 
 async function handleExerciseDelete(id)
 {
-    // myExercises = myExercises.filter(exercise => exercise.id != id)
     const response = await fetch('http://localhost:5000/api/Exercise/'+ id, 
     {
         method: 'DELETE', 

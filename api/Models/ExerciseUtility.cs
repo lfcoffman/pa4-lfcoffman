@@ -72,10 +72,6 @@ namespace pa4_lfcoffman.api.Models
             using var cmd = new MySqlCommand(stm, con);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
-            // cmd.Parameters.AddWithValue("@name", myExercises.ExerciseName);
-            // cmd.Parameters.AddWithValue("@date", myExercises.Date);
-            // cmd.Parameters.AddWithValue("@distance", myExercises.Distance);
-            // cmd.ExecuteNonQuery();
         }
     }
 }

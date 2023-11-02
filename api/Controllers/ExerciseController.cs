@@ -19,14 +19,6 @@ namespace api.Controllers
         {
             ExerciseUtility utility = new ExerciseUtility();
             return utility.GetAllExercises();
-            // List<Exercise> myExercises= utility.GetAllExercises();
-            // foreach(Exercise exercise in myExercises){
-            //     if(exercise.Id == id)
-            //     {
-            //         return exercise;
-            //     }
-            // }
-            // return new Exercise();
         }
 
         // POST: api/Exercise
